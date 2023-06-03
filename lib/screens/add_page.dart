@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../services/auth.dart';
+
 class AddPage extends StatefulWidget {
   const AddPage({Key? key}) : super(key: key);
   @override
@@ -9,13 +11,17 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  late String name;
-  late String type = 'Football';
-  late String price;
-  late String size = '5*5';
-  late String pay = 'Cash';
+  String type = 'Football';
+  String size = '5*5';
+  String pay = 'Cash';
   final List<XFile> _images = [];
   final ImagePicker _picker = ImagePicker();
+  final AuthService _auth = AuthService();
+  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
+
+  final TextEditingController _stadiumnamecontroller = TextEditingController();
+  final TextEditingController _pricecontroller = TextEditingController();
 
   Future<void> _pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -56,43 +62,50 @@ class _AddPageState extends State<AddPage> {
           padding: const EdgeInsets.symmetric(vertical: 5),
           children: [
             //Playground name(1)
-            TextField(
-              style: const TextStyle(),
-              onChanged: (String value) {
-                setState(() {
-                  name = value;
-                });
-              },
-              enabled: true,
-              textAlign: TextAlign.start,
-              textDirection: TextDirection.ltr,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                labelText: 'name',
-                labelStyle: const TextStyle(
-                  color: Colors.redAccent,
-                ),
-                hintText: 'Enter Playground name',
-                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                hintMaxLines: 1,
-                hintTextDirection: TextDirection.ltr,
-                prefixIcon: const Icon(
-                  Icons.stadium,
-                  color: Colors.redAccent,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.grey,
-                    width: 1,
+            Form(
+              key: _formKey1,
+              child: TextFormField(
+                controller: _stadiumnamecontroller,
+                style: const TextStyle(),
+                onChanged: (String value) {
+                  setState(() {
+                    _stadiumnamecontroller.text = value;
+                  });
+                },
+                onSaved: (newValue) {
+                  _stadiumnamecontroller.text = newValue!;
+                },
+                enabled: true,
+                textAlign: TextAlign.start,
+                textDirection: TextDirection.ltr,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.redAccent),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  labelText: 'name',
+                  labelStyle: const TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                  hintText: 'Enter Playground name',
+                  hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  hintMaxLines: 1,
+                  hintTextDirection: TextDirection.ltr,
+                  prefixIcon: const Icon(
+                    Icons.stadium,
+                    color: Colors.redAccent,
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ),
-// SizedBox
+            // SizedBox
             const SizedBox(
               height: 20,
             ),
@@ -104,6 +117,9 @@ class _AddPageState extends State<AddPage> {
                 setState(() {
                   type = newValue!;
                 });
+              },
+              onSaved: (newValue) {
+                type = newValue!;
               },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -120,9 +136,9 @@ class _AddPageState extends State<AddPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              items:  [
+              items: [
                 DropdownMenuItem<String>(
-                  value: 'Football',
+                  value: type,
                   child: Row(
                     children: [
                       Text(
@@ -172,7 +188,7 @@ class _AddPageState extends State<AddPage> {
               ],
             ),
 
-//SizedBox
+            //SizedBox
             const SizedBox(
               height: 15,
             ),
@@ -181,7 +197,7 @@ class _AddPageState extends State<AddPage> {
               "pick your images",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
             ),
-// SizedBox
+            // SizedBox
             const SizedBox(
               height: 40,
             ),
@@ -234,40 +250,46 @@ class _AddPageState extends State<AddPage> {
             ),
 
             //Playground Price(4)
-            TextField(
-              onChanged: (String value) {
-                setState(() {
-                  price = value;
-                });
-              },
-              keyboardType: TextInputType.number,
-              style: const TextStyle(),
-              enabled: true,
-              textAlign: TextAlign.start,
-              textDirection: TextDirection.ltr,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                labelText: 'Price',
-                labelStyle: const TextStyle(
-                  color: Colors.redAccent,
-                ),
-                hintText: 'Enter Playground Price',
-                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                hintMaxLines: 1,
-                hintTextDirection: TextDirection.ltr,
-                prefixIcon: const Icon(
-                  Icons.monetization_on,
-                  color: Colors.redAccent,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.grey,
-                    width: 1,
+            Form(
+              key: _formKey2,
+              child: TextFormField(
+                onChanged: (String value) {
+                  setState(() {
+                    _pricecontroller.text = value;
+                  });
+                },
+                onSaved: (newValue) {
+                  _pricecontroller.text = newValue!;
+                },
+                keyboardType: TextInputType.number,
+                style: const TextStyle(),
+                enabled: true,
+                textAlign: TextAlign.start,
+                textDirection: TextDirection.ltr,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.redAccent),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  labelText: 'Price',
+                  labelStyle: const TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                  hintText: 'Enter Playground Price',
+                  hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  hintMaxLines: 1,
+                  hintTextDirection: TextDirection.ltr,
+                  prefixIcon: const Icon(
+                    Icons.monetization_on,
+                    color: Colors.redAccent,
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ),
@@ -309,6 +331,9 @@ class _AddPageState extends State<AddPage> {
                   size = value ?? '';
                 });
               },
+              onSaved: (newValue) {
+                size = newValue!;
+              },
               items: const [
                 DropdownMenuItem(
                   value: '5*5',
@@ -328,7 +353,7 @@ class _AddPageState extends State<AddPage> {
                 ),
               ],
             ),
-////SizedBox
+            ////SizedBox
             const SizedBox(
               height: 20,
             ),
@@ -396,12 +421,27 @@ class _AddPageState extends State<AddPage> {
                   ),
                 ),
               ),
-              onPressed: _images.isNotEmpty
+              onPressed: () {
+                if (_formKey1.currentState!.validate() &&
+                    _formKey2.currentState!.validate()) {
+                  _formKey1.currentState!.save();
+                  _formKey2.currentState!.save();
+
+                  _auth.addPlaygroundData(
+                    playgroundName: _stadiumnamecontroller.text,
+                    price: _pricecontroller.text ,
+                    size: size,
+
+                  );
+                }
+              },
+
+              /* _images.isNotEmpty
                   ? () {
                       Navigator.pop(context, {
-                        'name': name,
+                        'name': _stadiumnamecontroller.text,
                         'type': type,
-                        'price': price,
+                        'price': _pricecontroller.text,
                         'size': size,
                         'pay': pay,
                         'imagePath': _images.isNotEmpty ? _images[0].path : '',
@@ -409,7 +449,7 @@ class _AddPageState extends State<AddPage> {
                         'imagePath2': _images.length > 2 ? _images[2].path : '',
                       });
                     }
-                  : null,
+                  : null,*/
               child: const Text(
                 'SAVE',
                 style: TextStyle(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'list_page.dart';
+
 class LaunchPage extends StatefulWidget {
   const LaunchPage({Key? key}) : super(key: key);
 
@@ -12,11 +14,13 @@ class _LaunchPageState extends State<LaunchPage> {
   void initState() {
     super.initState();
     Future.delayed(
-      const Duration(
-        seconds: 4,
-      ),
-      () => Navigator.pushReplacementNamed(context, '/list_page'),
-    );
+        const Duration(
+          seconds: 4,
+        ),
+        () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ListPage()),
+            ));
   }
 
   @override
@@ -33,8 +37,7 @@ class _LaunchPageState extends State<LaunchPage> {
               SizedBox(
                 height: 500,
                 width: double.infinity,
-                child: Image.asset(
-                    'images/Screenshot 2023-05-08 at 3.18.49 AM.png'),
+                child: Image.asset('images/MicrosoftTeams-image.png'),
               ),
               const Text(
                 'Derbyjo',

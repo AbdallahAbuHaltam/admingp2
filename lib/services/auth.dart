@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:admingp2/models/playground_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -37,13 +38,20 @@ class AuthService {
           email: email,
           password: password,
           phoneNo: phoneNo,
-          adminID: value.user!.uid);
+          adminID: value.user!.uid,
+          adminName: adminName,
+          );
       User? user = value.user;
-      userCollection
-          .doc(value.user!.uid)
-          .set(model.toMap())
-          .then((value) => print('success'))
-          .catchError((e) {
+      userCollection.doc(value.user!.uid).set(model.toMap()).then((value) {
+final uid = model.adminID;
+        admin.adminID = uid;
+        admin.email = model.email;
+        admin.password = model.password;
+        admin.phoneNo = model.phoneNo;
+        admin.adminName = model.adminName;
+
+        print('success');
+      }).catchError((e) {
         print(e.toString());
         _userfromFirebase(user!);
       });
@@ -68,6 +76,7 @@ class AuthService {
         admin.email = value.data()?['email'];
         admin.password = value.data()?['password'];
         admin.phoneNo = value.data()?['phoneNo'];
+        admin.adminName = value.data()?['adminName'];
 
         if (uid != null) {
           print("Success Login");
@@ -84,9 +93,6 @@ class AuthService {
     });
   }
 
-
-
-  
   Future signOut() async {
     try {
       return await _auth.signOut();
@@ -95,5 +101,42 @@ class AuthService {
     }
   }
 
- 
+  Future addPlaygroundData({
+    String? playgroundName,
+    String? size,
+    String? price,
+    PlaygroundType? type,
+    String? playgroundId,
+  }) async {
+    FirebaseFirestore.instance
+        .collection('playgroundInfo')
+        .add(PlaygroundInfo(
+                playgroundName: playgroundName,
+                size: size,
+                price: price,
+                type: type,
+                playgroundId: playgroundId,
+                admin: Admin(
+                    adminID: admin.adminID,
+                    adminName: admin.adminName,
+                    email: admin.email,
+                    password: admin.password,
+                    phoneNo: admin.phoneNo))
+            .toMap())
+        .then((value) {
+          playground.playgroundId=value.id;
+          print(playground.playgroundId);
+      print("Success add Playground Data");
+    });
+  }
+
+
+
+Future getPlayground()async{
+
+  FirebaseFirestore.instance.collection('playgroundInfo').get().then((value) {
+    print(value.docs); 
+  });
+}
+
 }
