@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -462,4 +463,34 @@ class _AddPageState extends State<AddPage> {
       ),
     );
   }
+}
+
+class ExpenseList extends StatelessWidget {
+  const ExpenseList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  StreamBuilder(
+    stream: FirebaseFirestore.instance.collection('playgroundInfo').snapshots(),
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+      if(!snapshot.hasData){
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+       return ListView.builder(
+      itemCount: snapshot.data!.size,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            title: Text(snapshot.data!.docs[index]['email']),
+            subtitle: Text(snapshot.data!.docs[index]['adminName']),
+          ),
+        );
+      },
+    );
+    }
+  );
+  }
+  
 }

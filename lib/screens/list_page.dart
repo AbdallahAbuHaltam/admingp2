@@ -137,12 +137,7 @@ class _ListPageState extends State<ListPage> {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ListView(
-          children: [
-            const SizedBox(height: 10),
-            ..._cardList,
-          ],
-        ),
+        child: const ExpenseList(),
       ),
       // Navigation bar
       bottomNavigationBar: BottomNavigationBar(

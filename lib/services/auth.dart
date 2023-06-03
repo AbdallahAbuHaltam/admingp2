@@ -132,11 +132,6 @@ final uid = model.adminID;
 
 
 
-Future getPlayground()async{
 
-  FirebaseFirestore.instance.collection('playgroundInfo').get().then((value) {
-    print(value.docs); 
-  });
-}
 
 }
