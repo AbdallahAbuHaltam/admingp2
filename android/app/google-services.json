@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "48246270639",
+    "project_id": "derbyjo-8bc06",
+    "storage_bucket": "derbyjo-8bc06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48246270639:android:e670bd216fcf6ff452825a",
+        "android_client_info": {
+          "package_name": "com.admin.admingp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48246270639-n6n0fl9h7561sievhmbb4btqhrqme0ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH20jh6CCvQlqRVaulQU3i1FobDDzhIQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48246270639-n6n0fl9h7561sievhmbb4btqhrqme0ot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48246270639:android:dc7c9d2b9d96b5e652825a",
+        "android_client_info": {
+          "package_name": "com.derbyjogp2.derbyjo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48246270639-n6n0fl9h7561sievhmbb4btqhrqme0ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH20jh6CCvQlqRVaulQU3i1FobDDzhIQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48246270639-n6n0fl9h7561sievhmbb4btqhrqme0ot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
