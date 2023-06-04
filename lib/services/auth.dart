@@ -35,15 +35,15 @@ class AuthService {
       print(value.user!.uid);
       print(value.user!.email);
       Admin model = Admin(
-          email: email,
-          password: password,
-          phoneNo: phoneNo,
-          adminID: value.user!.uid,
-          adminName: adminName,
-          );
+        email: email,
+        password: password,
+        phoneNo: phoneNo,
+        adminID: value.user!.uid,
+        adminName: adminName,
+      );
       User? user = value.user;
-      userCollection.doc(value.user!.uid).set(model.toMap()).then((value) {
-final uid = model.adminID;
+      userCollection.add(model.toMap()).then((value) {
+        final uid = model.adminID;
         admin.adminID = uid;
         admin.email = model.email;
         admin.password = model.password;
@@ -124,13 +124,7 @@ final uid = model.adminID;
                     phoneNo: admin.phoneNo))
             .toMap())
         .then((value) {
-          
       print("Success add Playground Data");
     });
   }
-
-
-
-
-
 }
