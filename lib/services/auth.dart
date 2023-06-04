@@ -124,8 +124,7 @@ final uid = model.adminID;
                     phoneNo: admin.phoneNo))
             .toMap())
         .then((value) {
-          playground.playgroundId=value.id;
-          print(playground.playgroundId);
+          
       print("Success add Playground Data");
     });
   }

@@ -42,7 +42,7 @@ class PlaygroundInfo {
       'phoneNo': admin!.phoneNo,
       'password': admin!.password,
       'adminID': admin!.adminID,
-      'name': playgroundName,
+      'playgroundName': playgroundName,
       'price': price,
       'type': type,
       'size': size,

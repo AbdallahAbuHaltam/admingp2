@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
   final Map<String,dynamic> map=json.decode(jsonString);
   final Players players = Players.formJson(map);*/
  final Admin admin =Admin();
- final PlaygroundInfo playground=PlaygroundInfo();
 void main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
