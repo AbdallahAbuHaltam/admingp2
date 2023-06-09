@@ -1,3 +1,4 @@
+import 'package:admingp2/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'add_page.dart';
 import 'booking_page.dart';
@@ -23,7 +24,6 @@ class _ListPageState extends State<ListPage> {
     String imagePath = list[5];
     String imagePath1 = list[6];
     String imagePath2 = list[7];
-
     setState(() {
       _cardList.add(
         Card(
@@ -89,6 +89,8 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthService _auth = AuthService();
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(237, 253, 253, 253),
       appBar: AppBar(
@@ -101,7 +103,10 @@ class _ListPageState extends State<ListPage> {
               backgroundColor: Colors.redAccent,
               radius: 25,
               child: IconButton(
+
                 onPressed: () {
+                        _auth.signOut();
+
                   // Handle image selection from gallery
                 },
                 icon: const Icon(
@@ -137,7 +142,7 @@ class _ListPageState extends State<ListPage> {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: const ExpenseList(),
+        
       ),
       // Navigation bar
       bottomNavigationBar: BottomNavigationBar(

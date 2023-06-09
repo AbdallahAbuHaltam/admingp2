@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:admingp2/models/facilities.dart';
 import 'package:admingp2/models/playground_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -105,8 +106,11 @@ class AuthService {
     String? playgroundName,
     String? size,
     String? price,
-    PlaygroundType? type,
+    String? type,
+    String? payment,
     String? playgroundId,
+
+    Facilities? facilities
   }) async {
     FirebaseFirestore.instance
         .collection('playgroundInfo')
@@ -115,16 +119,47 @@ class AuthService {
                 size: size,
                 price: price,
                 type: type,
+                payment:payment,
+                 facilities: Facilities(
+                      water: "water",
+                      waterPrice: facilities!.waterPrice,
+                      gatorade: "gatorade",
+                      gatoradePrice: facilities.gatoradePrice,
+                      kit: facilities.kit,
+                    
+                    ),
                 playgroundId: playgroundId,
                 admin: Admin(
                     adminID: admin.adminID,
                     adminName: admin.adminName,
                     email: admin.email,
                     password: admin.password,
-                    phoneNo: admin.phoneNo))
+                    phoneNo: admin.phoneNo),
+                   
+                    
+                    )
             .toMap())
         .then((value) {
       print("Success add Playground Data");
     });
   }
+
+  Future addFacilities({
+    String? water,
+    String? waterPrice,
+    String? gatorade,
+    String? gatoradePrice,
+    String? kit,
+  }) async {
+    FirebaseFirestore.instance
+        .collection('Facilities')
+        .add(Facilities(water: water,waterPrice: waterPrice, gatorade: gatorade,gatoradePrice: gatoradePrice,kit: kit)
+            .toMap())
+        .then((value) {
+      print("Success add  Facilities Data");
+    });
+  }
 }
+
+
+
