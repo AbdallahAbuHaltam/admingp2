@@ -1,8 +1,8 @@
 class Facilities {
   String? water;
-  String? waterPrice;
+  double? waterPrice;
   String? gatorade;
-  String? gatoradePrice;
+  double? gatoradePrice;
   String? kit;
 
   Facilities({

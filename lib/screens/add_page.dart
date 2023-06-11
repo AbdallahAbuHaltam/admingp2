@@ -46,10 +46,9 @@ class _AddPageState extends State<AddPage> {
   String typeOfPaymentValue = "Cash";
 
   final TextEditingController _stadiumnamecontroller = TextEditingController();
-  final TextEditingController _pricecontroller = TextEditingController();
-  final TextEditingController _waterPriceController = TextEditingController();
-  final TextEditingController _gatoradePriceController =
-      TextEditingController();
+  double _pricecontroller = 0.0;
+  double _waterPriceController = 0.0;
+  double _gatoradePriceController = 0.0;
   final TextEditingController _kitPriceController = TextEditingController();
 
   Future<void> _pickImage() async {
@@ -252,11 +251,11 @@ class _AddPageState extends State<AddPage> {
               TextFormField(
                 onChanged: (value) {
                   setState(() {
-                    _pricecontroller.text = value;
+                    _pricecontroller = double.parse(value);
                   });
                 },
                 onSaved: (newValue) {
-                  _pricecontroller.text = newValue!;
+                  _pricecontroller = double.parse(newValue!);
                 },
                 keyboardType: TextInputType.number,
                 style: const TextStyle(),
@@ -375,7 +374,6 @@ class _AddPageState extends State<AddPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
-                            controller: _waterPriceController,
                             keyboardType: TextInputType.number,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
@@ -383,10 +381,10 @@ class _AddPageState extends State<AddPage> {
                                 ? "Must be more 1 length "
                                 : null,
                             onChanged: (val) {
-                              _waterPriceController.text = val;
+                              _waterPriceController = double.parse(val);
                             },
                             onSaved: (value) {
-                              _waterPriceController.text = value!;
+                              _waterPriceController = double.parse(value!);
                             },
                             decoration: InputDecoration(
                               labelText: 'Enter price',
@@ -415,7 +413,6 @@ class _AddPageState extends State<AddPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
-                            controller: _gatoradePriceController,
                             keyboardType: TextInputType.number,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
@@ -423,10 +420,10 @@ class _AddPageState extends State<AddPage> {
                                 ? "Must be more 1 length "
                                 : null,
                             onChanged: (val) {
-                              _gatoradePriceController.text = val;
+                              _gatoradePriceController = double.parse(val);
                             },
                             onSaved: (value) {
-                              _gatoradePriceController.text = value!;
+                              _gatoradePriceController = double.parse(value!);
                             },
                             decoration: InputDecoration(
                               labelText: 'Enter price',
@@ -543,20 +540,20 @@ class _AddPageState extends State<AddPage> {
 
                     _auth.addPlaygroundData(
                         playgroundName: _stadiumnamecontroller.text,
-                        price: _pricecontroller.text,
+                        price: _pricecontroller,
                         type: typeOfPlaygroundValue,
                         size: sizeOfPlaygroungValue,
                         payment: typeOfPaymentValue,
                         facilities: Facilities(
-                          waterPrice: _waterPriceController.text,
-                          gatoradePrice: _gatoradePriceController.text,
+                          waterPrice: _waterPriceController,
+                          gatoradePrice: _gatoradePriceController,
                           kit: "kit",
                         ));
                     _auth.addFacilities(
                       water: "water",
-                      waterPrice: _waterPriceController.text,
+                      waterPrice: _waterPriceController,
                       gatorade: "gatorade",
-                      gatoradePrice: _gatoradePriceController.text,
+                      gatoradePrice: _gatoradePriceController,
                       kit: "kit",
                     );
                   }

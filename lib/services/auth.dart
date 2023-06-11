@@ -105,7 +105,7 @@ class AuthService {
   Future addPlaygroundData(
       {String? playgroundName,
       String? size,
-      String? price,
+      double? price,
       String? type,
       String? payment,
       String? playgroundId,
@@ -140,9 +140,9 @@ class AuthService {
 
   Future addFacilities({
     String? water,
-    String? waterPrice,
+    double? waterPrice,
     String? gatorade,
-    String? gatoradePrice,
+    double? gatoradePrice,
     String? kit,
   }) async {
     FirebaseFirestore.instance

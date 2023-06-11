@@ -5,7 +5,7 @@ class PlaygroundInfo {
   Admin? admin;
   String? playgroundName;
   String? size;
-  String? price;
+  double? price;
   String? type;
   String? payment;
   Facilities? facilities;
@@ -36,7 +36,7 @@ class PlaygroundInfo {
     price = json?['price'];
     type = json?['type'];
     size = json?['size'];
-    payment =json?['payment'];
+    payment = json?['payment'];
     playgroundId = json?['playgroundId'];
   }
 
@@ -47,15 +47,14 @@ class PlaygroundInfo {
       'phoneNo': admin!.phoneNo,
       'password': admin!.password,
       'adminID': admin!.adminID,
-      'waterPrice':facilities!.waterPrice,
-      'gatoradePrice':facilities!.gatoradePrice,
-      'kit':facilities!.kit,
-
+      'waterPrice': facilities!.waterPrice,
+      'gatoradePrice': facilities!.gatoradePrice,
+      'kit': facilities!.kit,
       'playgroundName': playgroundName,
       'price': price,
       'type': type,
       'size': size,
-      'payment':payment,
+      'payment': payment,
       'playgroundId': playgroundId,
     };
   }
