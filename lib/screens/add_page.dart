@@ -19,8 +19,7 @@ class _AddPageState extends State<AddPage> {
 
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
-    final _formKey3 = GlobalKey<FormState>();
-
+  final _formKey3 = GlobalKey<FormState>();
 
   bool _isCheckedWater = false;
   bool _isTextFormVisibleWater = false;
@@ -88,18 +87,16 @@ class _AddPageState extends State<AddPage> {
         elevation: 0,
       ),
       body: Form(
-        key:_formKey1 ,
+        key: _formKey1,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 5),
             children: [
               //Playground name(1)
-      
+
               TextFormField(
-                controller: _stadiumnamecontroller,
-                style: const TextStyle(),
-                onChanged: (String value) {
+                onChanged: (value) {
                   setState(() {
                     _stadiumnamecontroller.text = value;
                   });
@@ -107,19 +104,24 @@ class _AddPageState extends State<AddPage> {
                 onSaved: (newValue) {
                   _stadiumnamecontroller.text = newValue!;
                 },
+                keyboardType: TextInputType.name,
+                style: const TextStyle(),
+                enabled: true,
+                textAlign: TextAlign.start,
+                textDirection: TextDirection.ltr,
                 decoration: InputDecoration(
-                  isDense: true,
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.redAccent),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  labelText: 'name',
+                  labelText: 'Name of playground',
                   labelStyle: const TextStyle(
                     color: Colors.redAccent,
                   ),
-                  hintText: 'Enter Playground name',
+                  hintText: 'Enter Playground Name',
                   hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                   hintMaxLines: 1,
+                  hintTextDirection: TextDirection.ltr,
                   prefixIcon: const Icon(
                     Icons.stadium,
                     color: Colors.redAccent,
@@ -133,13 +135,13 @@ class _AddPageState extends State<AddPage> {
                   ),
                 ),
               ),
-      
+
               // SizedBox
-      
+
               const SizedBox(
                 height: 20,
               ),
-      
+
               //Playground type(2)
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
@@ -167,9 +169,7 @@ class _AddPageState extends State<AddPage> {
                             setState(() {
                               typeOfPlaygroundValue = value!;
                             });
-                            
                           },
-                          
                           items: typeOfPlaygroundList.map((String items) {
                             return DropdownMenuItem(
                               value: items,
@@ -180,26 +180,26 @@ class _AddPageState extends State<AddPage> {
                   ],
                 ),
               ),
-      
+
               //SizedBox
-      
+
               const SizedBox(
                 height: 15,
               ),
-      
+
               const Text(
                 "pick your images",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
               ),
-      
+
               // SizedBox
-      
+
               const SizedBox(
                 height: 40,
               ),
-      
+
               //image pick from gallary(3)
-      
+
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
@@ -240,17 +240,17 @@ class _AddPageState extends State<AddPage> {
                   ],
                 ),
               ),
-      
+
               //SizedBox
-      
+
               const SizedBox(
                 height: 40,
               ),
-      
+
               //Playground Price(4)
-      
+
               TextFormField(
-                onChanged: ( value) {
+                onChanged: (value) {
                   setState(() {
                     _pricecontroller.text = value;
                   });
@@ -289,16 +289,16 @@ class _AddPageState extends State<AddPage> {
                   ),
                 ),
               ),
-      
+
               //SizedBox
-      
+
               const SizedBox(
                 height: 20,
               ),
-      
+
               //Playground Size(5)
-      
-               Padding(
+
+              Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: Row(
                   children: [
@@ -336,272 +336,152 @@ class _AddPageState extends State<AddPage> {
                 ),
               ),
               ////SizedBox
-      
+
               const SizedBox(
                 height: 20,
               ),
-      Padding(
-      
+              Padding(
                 padding: EdgeInsets.fromLTRB(8, 10, 8, 30),
-      
                 child: Container(
-      
                   decoration: BoxDecoration(
-      
                       borderRadius: BorderRadius.circular(15),
-      
                       color: const Color.fromARGB(255, 223, 223, 223)),
-      
                   child: Column(
-      
                     children: [
-      
                       Text(
-      
                         "Add facilites : ",
-      
                         style: TextStyle(
-      
                           fontWeight: FontWeight.bold,
-      
                           fontSize: 16,
-      
                         ),
-      
                       ),
-      
                       Row(
-      
                         children: [
-      
                           Checkbox(
-      
                             value: _isCheckedWater,
-      
                             onChanged: (bool? value) {
-      
                               setState(() {
-      
                                 _isCheckedWater = value!;
-      
+
                                 _isTextFormVisibleWater = value;
-      
                               });
-      
                             },
-      
                           ),
-      
                           Text('Water'),
-      
                         ],
-      
                       ),
-      
                       Visibility(
-      
                         visible: _isTextFormVisibleWater,
-      
                         child: Padding(
-      
                           padding: const EdgeInsets.all(8.0),
-      
                           child: TextFormField(
-      
                             controller: _waterPriceController,
-      
                             keyboardType: TextInputType.number,
-      
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-      
-                            validator: (value) =>
-      
-                                value!.isEmpty ? "Must be more 1 length " : null,
-      
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) => value!.isEmpty
+                                ? "Must be more 1 length "
+                                : null,
                             onChanged: (val) {
-      
                               _waterPriceController.text = val;
-      
                             },
-      
                             onSaved: (value) {
-      
                               _waterPriceController.text = value!;
-      
                             },
-      
                             decoration: InputDecoration(
-      
                               labelText: 'Enter price',
-      
                               border: OutlineInputBorder(),
-      
                             ),
-      
                           ),
-      
                         ),
-      
                       ),
-      
                       Row(
-      
                         children: [
-      
                           Checkbox(
-      
                             value: _isCheckedGatorade,
-      
                             onChanged: (bool? value) {
-      
                               setState(() {
-      
                                 _isCheckedGatorade = value!;
-      
+
                                 _isTextFormVisibleGatorade = value;
-      
                               });
-      
                             },
-      
                           ),
-      
                           Text('Gatorage'),
-      
                         ],
-      
                       ),
-      
                       Visibility(
-      
                         visible: _isTextFormVisibleGatorade,
-      
                         child: Padding(
-      
                           padding: const EdgeInsets.all(8.0),
-      
                           child: TextFormField(
-      
                             controller: _gatoradePriceController,
-      
                             keyboardType: TextInputType.number,
-      
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-      
-                            validator: (value) =>
-      
-                                value!.isEmpty ? "Must be more 1 length " : null,
-      
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) => value!.isEmpty
+                                ? "Must be more 1 length "
+                                : null,
                             onChanged: (val) {
-      
                               _gatoradePriceController.text = val;
-      
                             },
-      
                             onSaved: (value) {
-      
                               _gatoradePriceController.text = value!;
-      
                             },
-      
                             decoration: InputDecoration(
-      
                               labelText: 'Enter price',
-      
                               border: OutlineInputBorder(),
-      
                             ),
-      
                           ),
-      
                         ),
-      
                       ),
-      
                       Row(
-      
                         children: [
-      
                           Checkbox(
-      
                             value: _isCheckedKit,
-      
                             onChanged: (bool? value) {
-      
                               setState(() {
-      
                                 _isCheckedKit = value!;
-      
+
                                 _isTextFormVisibleKit = value;
-      
                               });
-      
                             },
-      
                           ),
-      
                           Text('Kit'),
-      
                         ],
-      
                       ),
-      
                       Visibility(
-      
                         visible: _isTextFormVisibleKit,
-      
                         child: Padding(
-      
                           padding: const EdgeInsets.all(8.0),
-      
                           child: TextFormField(
-      
                             controller: _kitPriceController,
-      
                             keyboardType: TextInputType.number,
-      
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-      
-                            validator: (value) =>
-      
-                                value!.isEmpty ? "Must be more 1 length " : null,
-      
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) => value!.isEmpty
+                                ? "Must be more 1 length "
+                                : null,
                             onChanged: (val) {
-      
                               _kitPriceController.text = val;
-      
                             },
-      
                             onSaved: (value) {
-      
                               _kitPriceController.text = value!;
-      
                             },
-      
                             decoration: InputDecoration(
-      
                               labelText: 'Enter price',
-      
                               border: OutlineInputBorder(),
-      
                             ),
-      
                           ),
-      
                         ),
-      
                       ),
-      
                     ],
-      
                   ),
-      
                 ),
-      
               ),
               //Pyement Method(6)
-      
-             Padding(
+
+              Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: Row(
                   children: [
@@ -639,13 +519,13 @@ class _AddPageState extends State<AddPage> {
                 ),
               ),
               //SizedBox
-      
+
               const SizedBox(
                 height: 20,
               ),
-      
+
               // Save Button
-      
+
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
@@ -658,24 +538,20 @@ class _AddPageState extends State<AddPage> {
                   ),
                 ),
                 onPressed: () {
-                  if (_formKey1.currentState!.validate() 
-                       ) {
+                  if (_formKey1.currentState!.validate()) {
                     _formKey1.currentState!.save();
-      
-                  
-      
+
                     _auth.addPlaygroundData(
-                      playgroundName: _stadiumnamecontroller.text,
-                      price: _pricecontroller.text,
-                      type: typeOfPlaygroundValue,
-                      size: sizeOfPlaygroungValue,
-                      payment: typeOfPaymentValue,
-                      facilities: Facilities(
-                        waterPrice: _waterPriceController.text,
-                        gatoradePrice: _gatoradePriceController.text,
-                        kit: "kit",
-                      )
-                    );
+                        playgroundName: _stadiumnamecontroller.text,
+                        price: _pricecontroller.text,
+                        type: typeOfPlaygroundValue,
+                        size: sizeOfPlaygroungValue,
+                        payment: typeOfPaymentValue,
+                        facilities: Facilities(
+                          waterPrice: _waterPriceController.text,
+                          gatoradePrice: _gatoradePriceController.text,
+                          kit: "kit",
+                        ));
                     _auth.addFacilities(
                       water: "water",
                       waterPrice: _waterPriceController.text,
@@ -685,7 +561,7 @@ class _AddPageState extends State<AddPage> {
                     );
                   }
                 },
-      
+
                 /* _images.isNotEmpty
       
                     ? () {
@@ -713,7 +589,7 @@ class _AddPageState extends State<AddPage> {
                       }
       
                     : null,*/
-      
+
                 child: const Text(
                   'SAVE',
                   style: TextStyle(
@@ -728,5 +604,3 @@ class _AddPageState extends State<AddPage> {
     );
   }
 }
-
-

@@ -102,43 +102,37 @@ class AuthService {
     }
   }
 
-  Future addPlaygroundData({
-    String? playgroundName,
-    String? size,
-    String? price,
-    String? type,
-    String? payment,
-    String? playgroundId,
-
-    Facilities? facilities
-  }) async {
+  Future addPlaygroundData(
+      {String? playgroundName,
+      String? size,
+      String? price,
+      String? type,
+      String? payment,
+      String? playgroundId,
+      Facilities? facilities}) async {
     FirebaseFirestore.instance
         .collection('playgroundInfo')
         .add(PlaygroundInfo(
-                playgroundName: playgroundName,
-                size: size,
-                price: price,
-                type: type,
-                payment:payment,
-                 facilities: Facilities(
-                      water: "water",
-                      waterPrice: facilities!.waterPrice,
-                      gatorade: "gatorade",
-                      gatoradePrice: facilities.gatoradePrice,
-                      kit: facilities.kit,
-                    
-                    ),
-                playgroundId: playgroundId,
-                admin: Admin(
-                    adminID: admin.adminID,
-                    adminName: admin.adminName,
-                    email: admin.email,
-                    password: admin.password,
-                    phoneNo: admin.phoneNo),
-                   
-                    
-                    )
-            .toMap())
+          playgroundName: playgroundName,
+          size: size,
+          price: price,
+          type: type,
+          payment: payment,
+          facilities: Facilities(
+            water: "water",
+            waterPrice: facilities!.waterPrice,
+            gatorade: "gatorade",
+            gatoradePrice: facilities.gatoradePrice,
+            kit: facilities.kit,
+          ),
+          playgroundId: playgroundId,
+          admin: Admin(
+              adminID: admin.adminID,
+              adminName: admin.adminName,
+              email: admin.email,
+              password: admin.password,
+              phoneNo: admin.phoneNo),
+        ).toMap())
         .then((value) {
       print("Success add Playground Data");
     });
@@ -153,13 +147,15 @@ class AuthService {
   }) async {
     FirebaseFirestore.instance
         .collection('Facilities')
-        .add(Facilities(water: water,waterPrice: waterPrice, gatorade: gatorade,gatoradePrice: gatoradePrice,kit: kit)
+        .add(Facilities(
+                water: water,
+                waterPrice: waterPrice,
+                gatorade: gatorade,
+                gatoradePrice: gatoradePrice,
+                kit: kit)
             .toMap())
         .then((value) {
       print("Success add  Facilities Data");
     });
   }
 }
-
-
-
