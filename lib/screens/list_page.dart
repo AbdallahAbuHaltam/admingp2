@@ -61,7 +61,7 @@ class _ListPageState extends State<ListPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const ListPage(),
     const AddPage(),
-    BookingPage(),
+    PlaygroundListCard(),
   ];
 
   void _onItemTapped(int index) async {
@@ -103,9 +103,8 @@ class _ListPageState extends State<ListPage> {
               backgroundColor: Colors.redAccent,
               radius: 25,
               child: IconButton(
-
                 onPressed: () {
-                        _auth.signOut();
+                  _auth.signOut();
 
                   // Handle image selection from gallery
                 },
@@ -142,7 +141,6 @@ class _ListPageState extends State<ListPage> {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        
       ),
       // Navigation bar
       bottomNavigationBar: BottomNavigationBar(
