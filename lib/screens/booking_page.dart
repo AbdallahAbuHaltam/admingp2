@@ -27,6 +27,8 @@ class PlaygroundListCard extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.size,
                 itemBuilder: (context, index) {
+                  Timestamp timestamp = snapshot.data!.docs[index]['date'];
+                  DateTime date = timestamp.toDate();
                   if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -84,7 +86,7 @@ class PlaygroundListCard extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  snapshot.data!.docs[index]['date'].toString(),
+                                  date.toString(),
                                   style: const TextStyle(fontSize: 12),
                                 ),
                                 const SizedBox(height: 8),

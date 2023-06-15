@@ -5,7 +5,6 @@ import '../../utils/constants.dart';
 import '../launch.dart';
 import 'signup.dart';
 
-
 class Login extends StatefulWidget {
   const Login({
     super.key,
@@ -46,7 +45,7 @@ class _LoginState extends State<Login> {
                 width: 350,
                 child: TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(
+                        focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         ),
                         labelText: eEmail,
@@ -232,8 +231,7 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                      onTap: () async {
-                      },
+                      onTap: () async {},
                       child: Column(
                         children: [
                           Image.asset('images/Google.png'),

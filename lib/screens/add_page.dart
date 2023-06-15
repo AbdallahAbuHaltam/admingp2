@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:admingp2/models/facilities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/auth.dart';
@@ -51,7 +52,7 @@ class _AddPageState extends State<AddPage> {
   double _gatoradePriceController = 0.0;
   final TextEditingController _kitPriceController = TextEditingController();
 
-  Future<void> _pickImage() async {
+  /*Future<void> _pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
@@ -60,7 +61,48 @@ class _AddPageState extends State<AddPage> {
     }
   }
 
-  final picker = ImagePicker();
+  final picker = ImagePicker();*/
+  String imageUrl = '';
+
+  Future<void> _getImageUrl() async {
+    Reference storageReference =
+        FirebaseStorage.instance.ref().child('image.jpg');
+
+    try {
+      String downloadURL = await storageReference.getDownloadURL();
+      setState(() {
+        imageUrl = downloadURL;
+      });
+    } catch (error) {
+      // Handle error while fetching the image URL
+      print('Error: $error');
+    }
+  }
+
+  final ImagePicker _imagePicker = ImagePicker();
+
+  Future<void> _selectImageFromLibrary() async {
+    final XFile? image =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      File file = File(image.path);
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child(fileName);
+      UploadTask uploadTask = storageReference.putFile(file);
+
+      await uploadTask.whenComplete(() {
+        // Image uploaded successfully
+        storageReference.getDownloadURL().then((fileURL) {
+          // You can now save the fileURL to Firestore or use it as needed
+          print("File URL: $fileURL");
+        });
+      }).catchError((error) {
+        // Handle image upload error
+        print("Image upload error: $error");
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +241,7 @@ class _AddPageState extends State<AddPage> {
 
               //image pick from gallary(3)
 
-              Container(
+              /* Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -237,6 +279,12 @@ class _AddPageState extends State<AddPage> {
                         ),
                       ),
                   ],
+                ),
+              ),*/
+              Center(
+                child: ElevatedButton(
+                  onPressed: _selectImageFromLibrary,
+                  child: Text('Select Image'),
                 ),
               ),
 

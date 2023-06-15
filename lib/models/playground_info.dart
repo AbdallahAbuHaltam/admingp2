@@ -10,17 +10,18 @@ class PlaygroundInfo {
   String? payment;
   Facilities? facilities;
   String? playgroundId;
+  String? playgroundImage;
 
-  PlaygroundInfo({
-    this.admin,
-    this.playgroundName,
-    this.size,
-    this.price,
-    this.type,
-    this.playgroundId,
-    this.payment,
-    this.facilities,
-  });
+  PlaygroundInfo(
+      {this.admin,
+      this.playgroundName,
+      this.size,
+      this.price,
+      this.type,
+      this.playgroundId,
+      this.payment,
+      this.facilities,
+      this.playgroundImage});
 
   PlaygroundInfo.formJson(Map<String, dynamic>? json) {
     admin?.adminName = json?['adminName'];
@@ -56,6 +57,7 @@ class PlaygroundInfo {
       'size': size,
       'payment': payment,
       'playgroundId': playgroundId,
+      'Image': playgroundImage,
     };
   }
 }
