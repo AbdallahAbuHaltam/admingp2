@@ -108,7 +108,6 @@ class AuthService {
       double? price,
       String? type,
       String? payment,
-      String? playgroundId,
       Facilities? facilities}) async {
     FirebaseFirestore.instance
         .collection('playgroundInfo')
@@ -125,7 +124,6 @@ class AuthService {
             gatoradePrice: facilities.gatoradePrice,
             kit: facilities.kit,
           ),
-          playgroundId: playgroundId,
           admin: Admin(
               adminID: admin.adminID,
               adminName: admin.adminName,

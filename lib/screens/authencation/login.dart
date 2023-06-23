@@ -210,7 +210,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              const Padding(
+              /* const Padding(
                 padding: EdgeInsets.only(top: 7, bottom: 7),
                 child: Text(
                   'or',
@@ -251,7 +251,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ],
-              ),
+              ),*/
             ],
           ),
         ),

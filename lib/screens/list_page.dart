@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'add_page.dart';
 import 'booking_page.dart';
 import 'card_column.dart';
+import 'list_data.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -140,7 +141,13 @@ class _ListPageState extends State<ListPage> {
       ),
 
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.only(top: 35.0),
+        child: Container(
+          height: 410,
+          width: double.infinity,
+          alignment: Alignment.centerLeft,
+          child: const HomeList(),
+        ),
       ),
       // Navigation bar
       bottomNavigationBar: BottomNavigationBar(

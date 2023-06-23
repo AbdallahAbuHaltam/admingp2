@@ -1,5 +1,5 @@
-class Admin{
-String? email;
+class Admin {
+  String? email;
   String? adminName;
   String? password;
   String? phoneNo;
@@ -12,15 +12,6 @@ String? email;
     this.phoneNo,
     this.adminID,
   });
-  Admin.formJson(Map<String, dynamic>? json) {
-    adminName = json?['adminName'];
-    email = json?['email'];
-    phoneNo = json?['phoneNo'];
-    password = json?['password'];
-    adminID = json?['adminID'];
-  }
-
-  
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,7 +22,4 @@ String? email;
       'adminID': adminID,
     };
   }
-
-  
-
 }

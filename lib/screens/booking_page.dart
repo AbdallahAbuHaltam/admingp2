@@ -24,16 +24,17 @@ class PlaygroundListCard extends StatelessWidget {
             stream:
                 FirebaseFirestore.instance.collection('Checkout').snapshots(),
             builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
               return ListView.builder(
                 itemCount: snapshot.data!.size,
                 itemBuilder: (context, index) {
-                  Timestamp timestamp = snapshot.data!.docs[index]['date'];
-                  DateTime date = timestamp.toDate();
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+                  /*Timestamp timestamp = snapshot.data!.docs[index]['date'];
+                  DateTime date = timestamp.toDate();*/
+
                   return Card(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
@@ -84,11 +85,11 @@ class PlaygroundListCard extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 8),
+                                /* const SizedBox(height: 8),
                                 Text(
                                   date.toString(),
                                   style: const TextStyle(fontSize: 12),
-                                ),
+                                ),*/
                                 const SizedBox(height: 8),
                                 RichText(
                                   text: TextSpan(

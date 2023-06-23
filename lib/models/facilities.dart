@@ -13,19 +13,13 @@ class Facilities {
     this.kit,
   });
 
-  Facilities.formJson(Map<String, dynamic>? json) {
-    water = json?['water'];
-    waterPrice = json?['waterPrice'];
-    gatorade = json?['gatorade'];
-    gatoradePrice = json?['gatoradePrice'];
-    kit = json?['kit'];
-  }
-
   Map<String, dynamic> toMap() {
-    return {'water':water,
-      'waterPrice':waterPrice,
-      'gatorade':gatorade,
-      'gatoradePrice':gatoradePrice,
-      'kit':kit,};
+    return {
+      'water': water,
+      'waterPrice': waterPrice,
+      'gatorade': gatorade,
+      'gatoradePrice': gatoradePrice,
+      'kit': kit,
+    };
   }
 }

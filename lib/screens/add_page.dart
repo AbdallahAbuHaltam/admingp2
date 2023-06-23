@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:admingp2/models/facilities.dart';
+import 'package:admingp2/screens/launch.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/auth.dart';
+import 'list_page.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({Key? key}) : super(key: key);
@@ -51,58 +53,6 @@ class _AddPageState extends State<AddPage> {
   double _waterPriceController = 0.0;
   double _gatoradePriceController = 0.0;
   final TextEditingController _kitPriceController = TextEditingController();
-
-  /*Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _images.add(image);
-      });
-    }
-  }
-
-  final picker = ImagePicker();*/
-  String imageUrl = '';
-
-  Future<void> _getImageUrl() async {
-    Reference storageReference =
-        FirebaseStorage.instance.ref().child('image.jpg');
-
-    try {
-      String downloadURL = await storageReference.getDownloadURL();
-      setState(() {
-        imageUrl = downloadURL;
-      });
-    } catch (error) {
-      // Handle error while fetching the image URL
-      print('Error: $error');
-    }
-  }
-
-  final ImagePicker _imagePicker = ImagePicker();
-
-  Future<void> _selectImageFromLibrary() async {
-    final XFile? image =
-        await _imagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      File file = File(image.path);
-      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      Reference storageReference =
-          FirebaseStorage.instance.ref().child(fileName);
-      UploadTask uploadTask = storageReference.putFile(file);
-
-      await uploadTask.whenComplete(() {
-        // Image uploaded successfully
-        storageReference.getDownloadURL().then((fileURL) {
-          // You can now save the fileURL to Firestore or use it as needed
-          print("File URL: $fileURL");
-        });
-      }).catchError((error) {
-        // Handle image upload error
-        print("Image upload error: $error");
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +139,7 @@ class _AddPageState extends State<AddPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 20),
+                      padding: const EdgeInsets.only(left: 10, right: 5),
                       child: Text(
                         "Type of playground",
                         style: TextStyle(
@@ -228,70 +178,10 @@ class _AddPageState extends State<AddPage> {
                 height: 15,
               ),
 
-              const Text(
-                "pick your images",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-              ),
-
-              // SizedBox
-
-              const SizedBox(
-                height: 40,
-              ),
-
-              //image pick from gallary(3)
-
-              /* Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    for (var i = 0; i < _images.length; i++)
-                      InkWell(
-                        onTap: () => setState(() => _images.removeAt(i)),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: Image.file(
-                            File(_images[i].path),
-                            width: 90,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    if (_images.length < 3)
-                      InkWell(
-                        onTap: _pickImage,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: const Icon(
-                            Icons.add_a_photo,
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),*/
-              Center(
-                child: ElevatedButton(
-                  onPressed: _selectImageFromLibrary,
-                  child: Text('Select Image'),
-                ),
-              ),
-
               //SizedBox
 
               const SizedBox(
-                height: 40,
+                height: 10,
               ),
 
               //Playground Price(4)
@@ -495,31 +385,6 @@ class _AddPageState extends State<AddPage> {
                           Text('Kit'),
                         ],
                       ),
-                      Visibility(
-                        visible: _isTextFormVisibleKit,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: _kitPriceController,
-                            keyboardType: TextInputType.number,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (value) => value!.isEmpty
-                                ? "Must be more 1 length "
-                                : null,
-                            onChanged: (val) {
-                              _kitPriceController.text = val;
-                            },
-                            onSaved: (value) {
-                              _kitPriceController.text = value!;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Enter price',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -605,36 +470,15 @@ class _AddPageState extends State<AddPage> {
                       kit: "kit",
                     );
                   }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ListPage()),
+                  );
+                  final snackBar = SnackBar(
+                    content: Text('Playground Add !'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
-
-                /* _images.isNotEmpty
-      
-                    ? () {
-      
-                        Navigator.pop(context, {
-      
-                          'name': _stadiumnamecontroller.text,
-      
-                          'type': type,
-      
-                          'price': _pricecontroller.text,
-      
-                          'size': size,
-      
-                          'pay': pay,
-      
-                          'imagePath': _images.isNotEmpty ? _images[0].path : '',
-      
-                          'imagePath1': _images.length > 1 ? _images[1].path : '',
-      
-                          'imagePath2': _images.length > 2 ? _images[2].path : '',
-      
-                        });
-      
-                      }
-      
-                    : null,*/
-
                 child: const Text(
                   'SAVE',
                   style: TextStyle(

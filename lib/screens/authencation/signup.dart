@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../services/auth.dart';
@@ -48,7 +47,7 @@ class _SignupState extends State<Signup> {
               width: 50,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 0, 3),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
               child: Image.asset("images/Rectangle 2.png"),
             )
           ],
@@ -278,13 +277,11 @@ class _SignupState extends State<Signup> {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
                                 _auth.userSignup(
-                                    adminName: _adminnamecontroller.text,
-                                    email: _emailcontroller.text,
-                                    password: _passwordcontroller.text,
-                                    phoneNo: _phonecontroller.text,
-                                    );
-                               
-                               
+                                  adminName: _adminnamecontroller.text,
+                                  email: _emailcontroller.text,
+                                  password: _passwordcontroller.text,
+                                  phoneNo: _phonecontroller.text,
+                                );
                               }
                             },
                             child: const Text(
