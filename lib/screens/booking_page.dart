@@ -85,11 +85,15 @@ class PlaygroundListCard extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                /* const SizedBox(height: 8),
+                                const SizedBox(height: 8),
                                 Text(
-                                  date.toString(),
+                                  snapshot.data!.docs[index]['date'],
                                   style: const TextStyle(fontSize: 12),
-                                ),*/
+                                ),
+                                Text(
+                                  snapshot.data!.docs[index]['time'],
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                                 const SizedBox(height: 8),
                                 RichText(
                                   text: TextSpan(

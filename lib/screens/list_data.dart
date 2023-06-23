@@ -158,6 +158,14 @@ class _HomeListState extends State<HomeList> {
                         ],
                       ),
                     ),
+                    Text(
+                      'Start from: ${snapshot.data!.docs[index]['date']} pm',
+                      style: const TextStyle(
+                        color: mBlackColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ],
                 ),
               );

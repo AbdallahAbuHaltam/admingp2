@@ -108,7 +108,8 @@ class AuthService {
       double? price,
       String? type,
       String? payment,
-      Facilities? facilities}) async {
+      Facilities? facilities,
+      String? date}) async {
     FirebaseFirestore.instance
         .collection('playgroundInfo')
         .add(PlaygroundInfo(
