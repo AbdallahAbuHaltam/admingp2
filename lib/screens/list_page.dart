@@ -1,3 +1,4 @@
+import 'package:admingp2/screens/authencation/login.dart';
 import 'package:admingp2/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'add_page.dart';
@@ -106,11 +107,14 @@ class _ListPageState extends State<ListPage> {
               child: IconButton(
                 onPressed: () {
                   _auth.signOut();
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()),
+                  );
                   // Handle image selection from gallery
                 },
                 icon: const Icon(
-                  Icons.add_a_photo,
+                  Icons.logout,
                   color: Colors.white,
                 ),
               ),

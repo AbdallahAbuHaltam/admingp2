@@ -72,7 +72,7 @@ class AuthService {
           .doc(value.user?.uid)
           .get()
           .then((value) {
-        final uid = value.data()?['uId'];
+        final uid = admin.adminID;
         admin.adminID = uid;
         admin.email = value.data()?['email'];
         admin.password = value.data()?['password'];

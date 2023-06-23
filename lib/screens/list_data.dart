@@ -58,7 +58,7 @@ class _HomeListState extends State<HomeList> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: Image.asset(
-                                'images/playground.jpg',
+                                'images/stadiumphoto (1).png',
                                 width: 174,
                                 height: 124,
                                 fit: BoxFit.cover,
